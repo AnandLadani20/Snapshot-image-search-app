@@ -22,9 +22,11 @@ const Modal = () => {
 
   const { imgData } = useSelector((state) => state.imageObj);
 
+  // random number
   const views = Math.floor(Math.random() * 100000 + 1);
   const downloads = Math.floor(Math.random() * 10000 + 1);
 
+// date convert
   const inputDateString = imgData?.user.updated_at;
   const inputDate = new Date(inputDateString);
   const options = { year: "numeric", month: "short", day: "numeric" };
@@ -36,18 +38,24 @@ const Modal = () => {
 
   // download image
   const handleDownloadImage = () => {
-    var element = document.createElement("a");
-    var file = new Blob([imgData?.urls.regular], { type: "image/jpeg" });
-    element.href = URL.createObjectURL(file);
-    element.download = "image.jpg";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
+    // Fetch the image data
+    fetch(`${imgData?.urls.regular}`)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a Blob from the fetched data
+            var element = document.createElement("a");
+            element.href = URL.createObjectURL(blob);
+            element.download = "image.jpg";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        })
+        .catch(error => console.error("Error fetching image:", error));
+};
   return (
     <>
-      <div class="modal-content">
-        <div class="modal-header">
+      <div className="modal-content">
+        <div className="modal-header">
           <div className="modal-img-owner-details" id="imageModalLabel">
             <div className="owner-person-img">
               <img src={imgData?.user.profile_image.large} alt="no-img"  loading="lazy"/>
@@ -83,7 +91,7 @@ const Modal = () => {
             </div>
           </figure>
         </div>
-        <div class="modal-footer">
+        <div className="modal-footer">
           <div className="d-flex justify-content-between align-items-start gap-3">
             <div className="d-flex gap-4 gap-md-4 flex-wrap">
               <div>

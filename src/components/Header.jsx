@@ -25,7 +25,6 @@ const Header = () => {
       setscrolEnd(false);
     }
   };
-
   const scrollCheck = (ref) => {
     setscrollX(ref.current.scrollLeft);
     if (
@@ -37,7 +36,7 @@ const Header = () => {
       setscrolEnd(false);
     }
   };
-  
+  // 
 
   const menuList = [
     "Cool Tones",
@@ -108,7 +107,7 @@ const Header = () => {
                 <div className="main-header-rightside-area">
                   <div className="navbar-menu-wrapper">
                     <Link to="">
-                      <i class="fa-solid fa-bars"></i>
+                      <i className="fa-solid fa-bars"></i>
                     </Link>
                   </div>
                 </div>

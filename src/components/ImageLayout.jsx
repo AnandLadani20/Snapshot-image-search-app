@@ -34,18 +34,24 @@ const ImageLayout = ({ imageData, fetchData }) => {
 
   // download image
   const handleDownloadImage = (img) => {
-    var element = document.createElement("a");
-    var file = new Blob([img?.urls.regular], { type: "image/jpeg" });
-    element.href = URL.createObjectURL(file);
-    element.download = "image.jpg";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-  };
+    // Fetch the image data
+    fetch(`${img?.urls.regular}`)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a Blob from the fetched data
+            var element = document.createElement("a");
+            element.href = URL.createObjectURL(blob);
+            element.download = "image.jpg";
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        })
+        .catch(error => console.error("Error fetching image:", error));
+};
 
-  // const isDeskScreen = useMediaQuery({ minWidth: 992});
+// Mediaquery 
   const isTabletScreen = useMediaQuery({ minWidth: 768, maxWidth: 991 });
-  // const isMobileScreen = useMediaQuery({ min maxWidth:992});
+  // mediaquery for image columns 
   const columnArr = isTabletScreen ? [0, 1] : [0, 1, 2];
 
   return (
@@ -59,16 +65,16 @@ const ImageLayout = ({ imageData, fetchData }) => {
               return (
                 <div className="common-img-layout-box" key={columnIndex}>
                   {/*seperate data from array in three column */}
-                  {imageData.map((img, i) => {
+                  {imageData.map((img, index) => {
                     // Calculate the starting index for the column
                     const startIndexColumn = num;
                     // Display images in the column
                     if (
-                      i % columnArr.length ===
+                      index % columnArr.length ===
                       startIndexColumn % columnArr.length
                     ) {
                       return (
-                        <div key={i}>
+                        <div key={index}>
                           <div className="img-content-wrapper">
                             <div className="img-hover-content">
                               <div className="img-hover-right-top-content">
@@ -117,8 +123,8 @@ const ImageLayout = ({ imageData, fetchData }) => {
                           </div>
 
                           <div className="img-tag-box">
-                            {img.tags.map((t) => {
-                              return <Link to={`/photos/${t.title}`}>{t.title}</Link>;
+                            {img.tags.map((t,i) => {
+                              return <Link to={`/photos/${t.title}`} key={i}>{t.title}</Link>;
                             })}
                           </div>
                         </div>
@@ -131,13 +137,13 @@ const ImageLayout = ({ imageData, fetchData }) => {
             })}
           </div>
           <div
-            class="modal"
+            className="modal"
             id="imageModalPage"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="imageModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog">
+            <div className="modal-dialog">
               <Modal />
             </div>
           </div>
@@ -186,7 +192,7 @@ const ImageLayout = ({ imageData, fetchData }) => {
                           </div>
                         </div>
                         <div className="mobile-img-download-btn">
-                          <button onClick={handleDownloadImage}>
+                          <button onClick={() => handleDownloadImage(img)}>
                             Download
                           </button>
                           <button>

@@ -41,8 +41,7 @@ const MenuImagePage = () => {
   const fetchData = useCallback(() => {
     dispatch(pageIncrement());
   }, [dispatch]);
-  console.log("pageno", pageNo);
-  console.log("imdDataInside", menuImageData);
+
 
   useEffect(() => {
     document.title = `${queryMenu}  - Snapshot`;

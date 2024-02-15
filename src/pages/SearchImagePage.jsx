@@ -59,7 +59,7 @@ const SearchImagePage = () => {
           ""
         )}
 
-        { !isLoading && !menuImageData.length ?  <ErrorItem /> : ''}
+        {!isLoading && !menuImageData.length ? <ErrorItem /> : ""}
 
         <ImageLayout imageData={menuImageData} fetchData={fetchData} />
       </div>

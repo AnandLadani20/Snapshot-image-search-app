@@ -41,12 +41,12 @@ const SearchField = () => {
     <>
       <form onSubmit={handleButtonSearch}>
         <div className={`input-group ${isInputFocused ? "focused" : ""}`}>
-          <button type="submit"  class="input-group-text form-search-btn">
+          <button type="submit"  className="input-group-text form-search-btn">
             <i className="fa-solid fa-magnifying-glass"></i>
           </button>
           <input
             type="text"
-            class="form-control searchImage-input"
+            className="form-control searchImage-input"
             placeholder="Search high resolution images"
             id="searchImage"
             value={searchValue}
@@ -56,7 +56,7 @@ const SearchField = () => {
             onKeyDown={handleEnterSearch}
             required
           />
-          <button type="button" class="input-group-text form-visualSearch-btn">
+          <button type="button" className="input-group-text form-visualSearch-btn">
             <VisualSearchIcon />
           </button>
         </div>

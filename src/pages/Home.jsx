@@ -34,7 +34,6 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(fetchMenuData({ query: queryPara, pageNo: pageNo }));
-    console.log("Hello useEffect1");
   }, [dispatch, pageNo, queryPara]);
 
   useEffect(() => {
@@ -43,18 +42,15 @@ const Home = () => {
       const filteredItem = mainData.filter((item) => !uniqueIds.has(item.id));
       return [...prev, ...filteredItem];
     });
-    console.log("Hello useEffect2");
   }, [mainData]);
 
   useEffect(() => {
     dispatch(resetData());
-    console.log("Hello useEffect3");
     setImageData([]);
   }, [dispatch, queryPara]);
 
   const fetchData = useCallback(() => {
     dispatch(pageIncrement());
-    console.log("Hello callback");
   }, [dispatch]);
 
   useEffect(() => {

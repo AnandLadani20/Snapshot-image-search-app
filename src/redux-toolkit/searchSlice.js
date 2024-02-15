@@ -4,7 +4,6 @@ import Api from "../api/Api";
 export const fetchMenuData = createAsyncThunk('search/fetchApiData', async ({ query, pageNo }) => {
     const url = `search/photos?page=${pageNo}&query=${query}&client_id=qVxHblnZCXiaFjTgMkAstQ12Oxd88yLXqp3CALrsknk`
     const response = await Api.get(url)
-    console.log("response", response.data)
     return response.data.results
 })
 
@@ -14,7 +13,7 @@ const searchSlice = createSlice({
         mainData: [],
         pageNo: 1,
         isLoading: false,
-        error:null,
+        error: null,
 
     },
     reducers: {
@@ -30,22 +29,22 @@ const searchSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchMenuData.pending,(state,action) => {
+        builder.addCase(fetchMenuData.pending, (state, action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("action1",action)
+
         })
         builder.addCase(fetchMenuData.fulfilled, (state, action) => {
             state.mainData = action.payload;
             state.isLoading = false
-            console.log("action2",action)
+
         })
         builder.addCase(fetchMenuData.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error.message;
-            console.log("action3",action)
+
         })
-      
+
     }
 })
 
