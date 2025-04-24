@@ -61,11 +61,11 @@ const ImageLayout = ({ imageData, fetchData }) => {
         <div className="col-12 d-none d-md-block">
           <div className="main-common-img-layout-container">
             {/* for three column Map */}
-            {columnArr.map((num, columnIndex) => {
+            {columnArr?.map((num, columnIndex) => {
               return (
                 <div className="common-img-layout-box" key={columnIndex}>
                   {/*seperate data from array in three column */}
-                  {imageData.map((img, index) => {
+                  {imageData?.map((img, index) => {
                     // Calculate the starting index for the column
                     const startIndexColumn = num;
                     // Display images in the column
@@ -123,7 +123,7 @@ const ImageLayout = ({ imageData, fetchData }) => {
                           </div>
 
                           <div className="img-tag-box">
-                            {img.tags.map((t,i) => {
+                            {img.tags?.map((t,i) => {
                               return <Link to={`/photos/${t.title}`} key={i}>{t.title}</Link>;
                             })}
                           </div>
@@ -154,7 +154,7 @@ const ImageLayout = ({ imageData, fetchData }) => {
             {/* for three column Map */}
             <div className="common-img-layout-box">
               {/*seperate data from array in three column */}
-              {imageData.map((img, i) => {
+              {imageData?.map((img, i) => {
                 // Calculate the starting index for the column
                 return (
                   <div key={i}>
